@@ -15,7 +15,7 @@ a{
 ul{
     list-style: none;
 }
-header{
+.home{
     padding-block: 5rem;
     background-size: cover;
     background-position: center center;
@@ -95,6 +95,10 @@ nav{
     line-height: 4rem;
 }
 
+.about{
+    background-color: grey;
+    background-position: center;
+}
 @media (width > 768px){
     nav {
         padding: 2rem 4rem;
