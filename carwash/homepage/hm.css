@@ -1,0 +1,146 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    color: #f1efef;
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+  }
+  
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+
+  header {
+    background-color: #fff;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo-text {
+    font-size: 2em;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .menu-btn {
+    display: none;
+    cursor: pointer;
+  }
+  
+  .links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+  }
+  
+  .links a {
+    text-decoration: none;
+    color: #333;
+    padding: 10px 20px;
+  }
+  
+  .links a:hover {
+    background-color:green;
+  }
+  
+  /* Responsive styles for smaller screens */
+  @media screen and (max-width: 768px) {
+    .links {
+      display: none;
+    }
+  
+    .menu-btn {
+      display: block;
+    }
+  }
+  
+  /* Home section styles */
+  .home {
+    text-align: center;
+    padding: 50px 0;
+    background-color: #f1f1f1;
+  }
+  
+  .header-content {
+    margin: 0 auto;
+    max-width: 600px;
+    color: #333;
+  }
+  
+  .header-btn button {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .header-btn button:hover {
+    background-color: #222;
+  }
+  
+  .about {
+    display: flex;
+    padding: 50px 0;
+  }
+  
+  .about1 {
+    flex: 1;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    color: #333;
+  }
+  
+  .text {
+    margin-bottom: 20px;
+  }
+  
+  .loc {
+    width: 100%;
+  }
+  
+  .services {
+    text-align: center;
+    padding: 50px 0;
+  }
+  
+  .services h1 {
+    margin-bottom: 30px;
+    color: #333;
+  }
+  
+  .ser1, .ser2, .ser3 {
+    display: inline-block;
+    margin: 10px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+  }
+  
+  .ser1 ul, .ser2 ul, .ser3 ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  

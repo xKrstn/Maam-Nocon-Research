@@ -3,14 +3,14 @@
  include "include/header.php"; 
 ?>
 
-<div class="container px-3 pt-4">
+<div class="container">
 <?php
     if (isset($_GET["msg"])) {
       $msg = $_GET["msg"];
       echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
       ' . $msg . '
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>';
+    </div>';
     }
 ?>
 <button class="btn btn-dark mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Add New</button>
