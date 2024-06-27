@@ -6,7 +6,7 @@ $wid = $_POST['wid']; // washtype ID
 $vid = $_POST['vid']; // vehicle ID
 
 // SQL query to fetch service types based on wash type and vehicle size
-$sql = "SELECT st.sname, s.price
+$sql = "SELECT s.servID, st.sname, s.price
         FROM service_tbl s
         INNER JOIN servicetype_tbl st ON s.stypeID = st.stypeID
         WHERE s.wtypeID = $wid

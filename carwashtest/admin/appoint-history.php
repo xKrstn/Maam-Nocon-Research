@@ -1,8 +1,6 @@
 <?php 
-    include 'include/connection.php';
-    include 'include/userheader.php';
-
-    $cusid = $_SESSION['id'];
+    include "../include/connection.php";
+    include "../include/header.php";
 ?>
 <div class="container px-3 pt-4">
 <?php
@@ -14,69 +12,84 @@
       </div>';
     }
 ?>
-  <div class="mb-4">
-    <h3>My Appointments</h3>
-  </div>
-  <table class="table table-hover text-center fs-6">
-    <thead class="table-dark align-middle style: width: 100%;">
-      <tr>
+    <div class="mb-4 d-flex justify-content-between align-items-center">
+      <h3>Appointment History</h3>
+      <form method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>" class="d-flex">
+          <input type="text" name="search" class="form-control me-2" placeholder="Search by Name, Vehicle Type, Wash Type, Date, or Status" value="<?php echo isset($_GET['search']) ? $_GET['search'] : ''; ?>">
+          <button type="submit" class="btn btn-dark">Search</button> &nbsp;
+          <a href="appoint-history.php" class = "btn btn-dark">Reset</a>
+      </form>
+    </div>
+    <table class="table table-hover text-center ">
+    <thead class="table-dark align-middle">
+        <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
         <th scope="col">Vehicle Type</th>
         <th scope="col">Wash Type</th>
-        <th scope="col">Service Type</th>
         <th scope="col">Date</th>
         <th scope="col">Timeslot</th>
+        <th scope="col">Status</th>
         <th scope="col">Option</th>
-      </tr>
+        </tr>
     </thead>
     <tbody>
-    <?php
-      // Query to fetch appointment details with joins
-      $sql = "SELECT a.appointID, c.firstname, c.lastname, v.vname AS vehicle_type, wt.washtype AS wash_type, st.sname AS service_type, s.price, a.date, a.timeslot, a.mop AS mode_of_payment, a.note, s.servID
-              FROM appointment_tbl a
-              INNER JOIN customer_tbl c ON a.customerID = c.customerID
-              INNER JOIN vehicle_tbl v ON a.vID = v.vID
-              INNER JOIN washtype_tbl wt ON a.wtypeID = wt.wtypeID
-              INNER JOIN service_tbl s ON a.servID = s.servID
-              INNER JOIN servicetype_tbl st ON s.stypeID = st.stypeID WHERE c.customerID=".$cusid." AND a.status='Booked' ORDER BY a.date ASC";
-      
-      $result = mysqli_query($con, $sql);
+        <?php
+        $sql = "SELECT a.appointID, c.firstname, c.lastname, v.vname AS vehicle_type, wt.washtype AS wash_type, st.sname AS service_type, s.price, a.date, a.timeslot, a.status, a.mop AS mode_of_payment, a.note, s.servID
+        FROM appointment_tbl a
+        INNER JOIN customer_tbl c ON a.customerID = c.customerID
+        INNER JOIN vehicle_tbl v ON a.vID = v.vID
+        INNER JOIN washtype_tbl wt ON a.wtypeID = wt.wtypeID
+        INNER JOIN service_tbl s ON a.servID = s.servID
+        INNER JOIN servicetype_tbl st ON s.stypeID = st.stypeID
+        WHERE a.status = 'Completed' OR a.status = 'Cancelled'";
 
-      $currentDate = date('Y-m-d'); // Get the current date
-
-      if (mysqli_num_rows($result) > 0) {
-        while ($row = mysqli_fetch_assoc($result)) {
-          $isToday = ($row["date"] == $currentDate); // Check if the appointment date is today
-      ?>
-          <tr class="align-middle">
-              <td><?php echo $row["vehicle_type"]; ?></td>
-              <td><?php echo $row["wash_type"]; ?></td>
-              <td><?php echo $row["service_type"]; ?></td>
-              <td><?php echo $row["date"]; ?></td>
-              <td><?php echo $row["timeslot"]; ?></td>
-            <td>
-            <button type="button" class="btn btn-dark btn-sm viewbtn" data-bs-toggle="modal" data-bs-target="#view" 
-              data-appointid="<?php echo $row['appointID']; ?>" 
-              data-name="<?php echo $row['firstname'] . ' ' . $row['lastname']; ?>"
-              data-vehicletype="<?php echo $row['vehicle_type']; ?>"
-              data-washtype="<?php echo $row['wash_type']; ?>"
-              data-servicetype="<?php echo $row['service_type']; ?>"
-              data-price="<?php echo "PHP " . $row['price']; ?>"
-              data-date="<?php echo $row['date']; ?>"
-              data-timeslot="<?php echo $row['timeslot']; ?>"
-              data-mode="<?php echo $row['mode_of_payment']; ?>"
-              data-note="<?php echo $row['note']; ?>">View</button>
-              <a onclick="return confirm('Are you sure you want to rebook your appointment?')" href="rebook.php?aid=<?php echo $row["appointID"]; ?>" class="btn btn-dark btn-sm <?php echo $isToday ? 'disabled' : ''; ?>"<?php echo $isToday ? 'aria-disabled="true"' : ''; ?>>Rebook</a>
-              <a onclick="return confirm('Are you sure you want to cancel your appointment? (Note: Once you cancel the appointment you cant book to this date)')" href="usercancel.php?aid=<?php echo $row["appointID"]; ?>" class="btn btn-dark btn-sm <?php echo $isToday ? 'disabled' : ''; ?>"<?php echo $isToday ? 'aria-disabled="true"' : ''; ?>>Cancel</a>
-            </td>
-          </tr>
-      <?php
+        if (isset($_GET['search']) && !empty($_GET['search'])) {
+            $searchQuery = $_GET['search'];
+            $sql .= " AND (CONCAT(c.firstname, ' ', c.lastname) LIKE '%$searchQuery%'
+                      OR v.vname LIKE '%$searchQuery%'
+                      OR wt.washtype LIKE '%$searchQuery%'
+                      OR a.date LIKE '%$searchQuery%'
+                      OR a.status LIKE '%$searchQuery%')";
         }
-      } else {
+
+        $sql .= " ORDER BY a.date ASC";
+
+        $result = mysqli_query($con, $sql);
+
+        if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+        ?>
+            <tr class="align-middle fs-6">
+                <td><?php echo $row["appointID"]; ?></td>
+                <td class="text-capitalize"><?php echo $row["firstname"] . " " . $row["lastname"]; ?></td>
+                <td><?php echo $row["vehicle_type"]; ?></td>
+                <td><?php echo $row["wash_type"]; ?></td>
+                <td><?php echo $row["date"]; ?></td>
+                <td><?php echo $row["timeslot"]; ?></td>
+                <td><?php echo $row["status"]; ?></td>
+                <td>
+                <button type="button" class="btn btn-dark btn-sm viewbtn" data-bs-toggle="modal" data-bs-target="#view" 
+                data-appointid="<?php echo $row['appointID']; ?>" 
+                data-name="<?php echo $row['firstname'] . ' ' . $row['lastname']; ?>"
+                data-vehicletype="<?php echo $row['vehicle_type']; ?>"
+                data-washtype="<?php echo $row['wash_type']; ?>"
+                data-servicetype="<?php echo $row['service_type']; ?>"
+                data-price="<?php echo "PHP " . $row['price']; ?>"
+                data-date="<?php echo $row['date']; ?>"
+                data-timeslot="<?php echo $row['timeslot']; ?>"
+                data-mode="<?php echo $row['mode_of_payment']; ?>"
+                data-note="<?php echo $row['note']; ?>">View</button>
+                </td>
+            </tr>
+        <?php
+        }
+        } else {
         echo '<tr><td colspan="10">No appointments found.</td></tr>';
-      }
-      ?>
+        }
+        ?>
     </tbody>
-  </table>
+    </table>
 
 </div>
 
@@ -153,7 +166,7 @@
   </div>
 </div>
 
-<?php include "include/userfooter.php";?>
+<?php include "../include/footer.php";?>
 
 <script>
 $(document).ready(function() {

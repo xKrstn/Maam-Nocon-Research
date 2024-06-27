@@ -1,7 +1,7 @@
 <?php 
     include "../include/session.php";
     include "../access.php";
-    checkAccess('a');
+    checkAccess('s');
     include "../include/connection.php"; 
 
     $count_sql = "SELECT COUNT(*) as total_active_booked 
@@ -35,7 +35,7 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script src="../jquery/jquery.min.js"></script>
 
-  <title> Carwash Admin</title>
+  <title> Carwash Staff</title>
 </head>
 <style>
     /*table{
@@ -51,21 +51,20 @@
 <body>
 <div class="main-container d-flex">
   <div class="sidebar" id="sidenav">
-      <div class="header-box px-3 pt-3 pb-4 d-flex justify-content-between">
+      <div class="header-box px-2 pt-3 pb-4 d-flex justify-content-between">
         <h1 class="fs-4 ms-2"><span class="text-white">JCL Carwash & Detailing</span>
+          </h1>
       </div>
       <ul class="list-unstyled px-2">
-          <li class=""><a href="dashboard.php" class="text-decoration-none d-block px-3 py-2"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
-          <li class=""><a href="admin.php" class="text-decoration-none d-block px-3 py-2"><i class="fa-solid fa-person"></i> Manage Staff</a></li>
-          <li class=""><a href="admin-appoint.php" class="text-decoration-none d-block px-3 py-2"><i class="fa-regular fa-calendar-check"></i> View All Appointments</a></li>
-          <li class=""><a href="admin-notification.php" class="text-decoration-none d-block px-3 py-2 d-flex justify-content-between">
+          <li class=""><a href="staff-home.php" class="text-decoration-none d-block px-3 py-2"><i class="fa-solid fa-house"></i> Home</a></li>
+          <li class=""><a href="staff-appoint.php" class="text-decoration-none d-block px-3 py-2"><i class="fa-regular fa-calendar-check"></i> View All Appointments</a></li>
+          <li class=""><a href="staff-notification.php" class="text-decoration-none d-block px-3 py-2 d-flex justify-content-between">
               <span><i class="fa-regular fa-bell"></i> Notification</span>
               <span class="bg-danger rounded-pill text-white py-0 px-2"><?php echo $total_active_booked; ?></span>
           </a>
           </li>
-          <li class=""><a href="appoint-history.php" class="text-decoration-none d-block px-3 py-2"><i class="fa-solid fa-clock-rotate-left"></i> Appointment History</a></li>
-          <li class=""><a href="announcement.php" class="text-decoration-none d-block px-3 py-2"><i class="fa-solid fa-bullhorn"></i> Announcement</a></li>
-          <li class=""><a href="admin-settings.php" class="text-decoration-none d-block px-3 py-2"><i class="fa-solid fa-gear"></i> Settings</a></li>
+          <li class=""><a href="staff-history.php" class="text-decoration-none d-block px-3 py-2"><i class="fa-solid fa-clock-rotate-left"></i> Appointment History</a></li>
+          <li class=""><a href="staff-settings.php" class="text-decoration-none d-block px-3 py-2"><i class="fa-solid fa-gear"></i> Settings</a></li>
       </ul>
       <hr class="h-color mx-2">
       <div class="sidebar-footer">

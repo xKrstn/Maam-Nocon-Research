@@ -12,6 +12,10 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 
     $staff_sql="SELECT * FROM staff_tbl WHERE username='$username'";
     $staff_result=$con->query($staff_sql);
+
+    $admin_sql = "SELECT * FROM manager_tbl WHERE username ='$username'";
+    $admin_result = $con->query($admin_sql);
+
     if($customer_result->num_rows>0){
         $row = $customer_result->fetch_assoc();
         $hashpass = $row['password'];
@@ -20,8 +24,9 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 
             $_SESSION['username']=$username;
             $_SESSION['id']=$cid;
-            echo "<script type='text/javascript'> alert('Welcome'); 
-            window.location = 'admin.php'; </script>";
+            $_SESSION['type']='c';
+            echo "<script type='text/javascript'> alert('Welcome ".$_SESSION['username']."'); 
+            window.location = 'appointment.php'; </script>";
         }
         else{
             echo "<script type='text/javascript'> 
@@ -38,8 +43,28 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 
             $_SESSION['username']=$username;
             $_SESSION['id']=$sid;
-            echo "<script type='text/javascript'> alert('Welcome'); 
-            window.location = 'admin.php'; </script>";
+            $_SESSION['type']='s';
+            echo "<script type='text/javascript'> alert('Welcome ".$_SESSION['username']."');  
+            window.location = 'admin/admin.php'; </script>";
+        }
+        else{
+            echo "<script type='text/javascript'> 
+            alert('Invalid Email or Password');
+            window.location='registration/login.html';
+            </script>";
+        }
+    }
+    elseif($admin_result->num_rows == 1){
+        $row = $admin_result->fetch_assoc();
+        $hashpass = $row['password'];
+        $mid = $row['mID'];
+        if(password_verify($password,$hashpass)){
+
+            $_SESSION['username']=$username;
+            $_SESSION['id']=$mid;
+            $_SESSION['type']='a';
+            echo "<script type='text/javascript'> alert('Welcome ".$_SESSION['username']."');  
+            window.location = 'admin/dashboard.php'; </script>";
         }
         else{
             echo "<script type='text/javascript'> 

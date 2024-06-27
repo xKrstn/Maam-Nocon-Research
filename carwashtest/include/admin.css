@@ -1,14 +1,24 @@
-body{
+body {
     background: #fff;
 }
-#sidenav{
+
+.main-container {
+    height: 100vh;
+}
+
+#sidenav {
     background: #15151f;
     min-width: 250px;
     max-width: 250px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
 }
-.content{
+.content {
     min-height: 100vh;
     width: 100%;
+    flex-grow: 1;
+    overflow-y: auto;
 }
 hr.h-color{
     background: #fff;
