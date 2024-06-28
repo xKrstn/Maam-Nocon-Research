@@ -1,14 +1,24 @@
-body{
+body {
     background: #fff;
 }
-#sidenav{
+
+.main-container {
+    height: 100vh;
+}
+
+#sidenav {
     background: #15151f;
     min-width: 250px;
     max-width: 250px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
 }
-.content{
+.content {
     min-height: 100vh;
     width: 100%;
+    flex-grow: 1;
+    overflow-y: auto;
 }
 hr.h-color{
     background: #fff;
@@ -23,6 +33,23 @@ hr.h-color{
 .sidebar li a{
     color: #fff;
 }
+
+/*
+@media(min-width:641px){
+    table{
+        table-layout: fixed;
+    }
+    td{
+        width: 33%;
+    }
+    .row{
+        margin-top: 20px;
+    }
+    .today{
+        background: grey;
+    }
+}*/
+
 @media(max-width: 767px){
     #side_nav{
       margin-left: -250px;
@@ -35,47 +62,47 @@ hr.h-color{
       margin-left: 0;
      }
 }
-
+/*
 @media only screen and(max-width:760px),(min-device-width: 820px) and (max-device-width:1020px){
-    .t{
+    table,thead,tbody,th,td,tr{
         display: block;
     }
     .empty{
         display: none;
     }
-    .th{
+    th{
         position:absolute;
         top: -9999px;
         left: -9999px;
     }
-    .tr{
+    tr{
         border: 1px solid #ccc;
     }
-    .td{
+    td{
         border: none;
         border-bottom: 1px solid #eee;
         position:relative;
         padding-left: 50%;
     }
-    .td:nth-of-type(1)::before{
+    td:nth-of-type(1)::before{
         content: "Sunday";
     }
-    .td:nth-of-type(2)::before{
+    td:nth-of-type(2)::before{
         content: "Monday";
     }
-    .td:nth-of-type(3)::before{
+    td:nth-of-type(3)::before{
         content: "Tuesday";
     }
-    .td:nth-of-type(4)::before{
+    td:nth-of-type(4)::before{
         content: "Wednesday";
     }
-    .td:nth-of-type(5)::before{
+    td:nth-of-type(5)::before{
         content: "Thursday";
     }
-    .td:nth-of-type(6)::before{
+    td:nth-of-type(6)::before{
         content: "Friday";
     }
-    .td:nth-of-type(7)::before{
+    td:nth-of-type(7)::before{
         content: "Saturday";
     }
-}
+}*/

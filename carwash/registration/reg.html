@@ -7,20 +7,18 @@
     <link rel="stylesheet" href="login-reg.css">
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <a href="../index.html" class="logo">Carwash</a>
-            <nav class="navbar">
-                <a href="../index.html">Home</a>
-                <a href="../index.html">Services</a>
-                <a href="#project">Contact Us</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="../registration/reg.html"><button class="sub">Sign In</button></a>
-            </nav>
-        </div>
+    <header>
+        <nav class="navbar">
+            <img src="../img/jcl logo.jpg" alt="JCL Logo" class="logo-image">
+            <ul class="links">
+                <li><a href="../index.php">Home</a></li>
+                <li><a href="../index.php#services">Services</a></li>
+                <li><a href="../index.php#contact">Contact Us</a></li>
+            </ul>
+        </nav>
     </header>
-    
-    
-        <div class="box2">
+    <div class="container">
+        <div class="box">
             <h2>Register</h2>
             <form action="../register-php.php" method="post"class="formbox">
                 <div class="column">
@@ -41,10 +39,10 @@
                     <input type="number" name="phonenum" placeholder="Phone Number" maxlength="11" required>
                 </div>
                 <div class="input">
-                    <input type="password" name="password" placeholder="Password" required>
+                    <input type="password" name="password" placeholder="Password" minlength="6" required>
                 </div>
                 <div class="input">
-                    <input type="password" name="conpass" placeholder="Confirm Password" required>
+                    <input type="password" name="conpass" placeholder="Confirm Password" minlength="6" required>
                 </div>
                 <button type="submit" class="button">Register</button>
                 <div class="link">
@@ -53,6 +51,10 @@
                 </div>
             </form>
         </div>
+    </div>
+    
+    
+        
     
 </body>
 </html>
